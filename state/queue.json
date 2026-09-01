@@ -32,21 +32,5 @@
     "modMsgId": 355,
     "parent": "q_823020242",
     "remix": true
-  },
-  "q_823020445": {
-    "fileId": "AwACAgQAAxkBAAIBeWqN3zhVj-evbKgne0s-Xja6Ofk2AAJYIwACZZFpUIObG2VEP2bMPQQ",
-    "name": "Marc",
-    "username": "marcflove",
-    "title": "",
-    "video": false,
-    "tags": [],
-    "sel": {
-      "alias": "",
-      "anon": false
-    },
-    "uploader": "84559b7a1e80ec172569aee2eb97d9f5b2f5c643268b5814c8c1c3c176369d0c",
-    "modMsgId": 379,
-    "parent": "q_823020265",
-    "remix": true
   }
 }

@@ -2,18 +2,6 @@
   "schema": "risa-feed/1",
   "clips": [
     {
-      "id": "q_823020437",
-      "name": "Marc",
-      "src": "https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/q_823020437.mp3",
-      "when": "2026-08-21",
-      "t": "vaaa",
-      "tg": "@marcflove",
-      "key": "84559b7a1e80ec172569aee2eb97d9f5b2f5c643268b5814c8c1c3c176369d0c",
-      "parent": "q_823020242",
-      "remix": true,
-      "channelMsgId": 29
-    },
-    {
       "id": "q_823020358",
       "name": "Marc",
       "src": "https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/q_823020358.mp3",

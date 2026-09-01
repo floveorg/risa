@@ -1383,26 +1383,21 @@ body:has(#lang-en:checked) .es{display:none}
     <div class="wrap">
       <div class="section-head head-center">
         <p class="eyebrow"><span class="es" lang="es">Tu perfil liberada</span><span class="en" lang="en">Your liberada profile</span></p>
-        <h2><span class="es" lang="es">Pasado · presente · futuro</span><span class="en" lang="en">Past · present · future</span></h2>
-        <p class="demo-lead"><span class="es" lang="es">Cómo compartías tus risas, cómo lo haces hoy y hacia dónde va tu perfil.</span><span class="en" lang="en">How you shared your laughs, how you do it today, and where your profile is going.</span></p>
       </div>
       <div class="demo-grid">
         <article class="demo-card demo-past">
-          <span class="demo-tag"><span class="es" lang="es">Pasado</span><span class="en" lang="en">Past</span></span>
           <h3>risa.liberada.net/#/u/&lt;key&gt;</h3>
-          <p><span class="es" lang="es">Tu página de autor dentro de risa: un enlace largo que solo mostraba tus risas de esta app.</span><span class="en" lang="en">Your author page inside risa: a long link that only showed your laughs from this app.</span></p>
-          <a class="demo-download" href="risa103.zip" download rel="noopener"><span class="es" lang="es">⤓ Descarga Risa v1 · Nick as tag</span><span class="en" lang="en">⤓ Download Risa v1 · Nick as tag</span></a>
+          <p><span class="es" lang="es"><b>Nombre como Tag</b>: un enlace a tus risas publicadas. Todo en un solo fichero (<code>index.html</code> y <code>risa.json</code>).</span><span class="en" lang="en"><b>Name as Tag</b>: a link to your published laughs. Everything in one single file (<code>index.html</code> and <code>risa.json</code>).</span></p>
+          <a class="demo-download" href="MANUAL.md" target="_blank" rel="noopener"><span class="es" lang="es">📘 Manual de uso</span><span class="en" lang="en">📘 User manual</span></a>
         </article>
         <article class="demo-card demo-present">
-          <span class="demo-tag"><span class="es" lang="es">Presente</span><span class="en" lang="en">Present</span></span>
           <a class="demo-url" href="https://maria.liberada.net" target="_blank" rel="noopener">maria.liberada.net</a>
-          <p><span class="es" lang="es">El perfil de la demo, ya con su subdominio: redirige a su perfil agregador con risas, amores y alias.</span><span class="en" lang="en">The demo profile, already with its subdomain: it redirects to her aggregator profile with laughs, loves and aliases.</span></p>
-          <a class="demo-download" href="https://liberada.net/usa/" target="_blank" rel="noopener"><span class="es" lang="es">usa.liberada.net — tour del subdominio ↗</span><span class="en" lang="en">usa.liberada.net — subdomain tour ↗</span></a>
+          <p><span class="es" lang="es">El perfil de la demo, ya con su subdominio: redirige a su perfil agregador con risas, amores, alias y más.</span><span class="en" lang="en">The demo profile, already with its subdomain: it redirects to her aggregator profile with laughs, loves, aliases and more.</span></p>
+          <a class="demo-download" href="https://liberada.net/usa/" target="_blank" rel="noopener"><span class="es" lang="es">Ver más ↗</span><span class="en" lang="en">See more ↗</span></a>
         </article>
         <article class="demo-card demo-future">
-          <span class="demo-tag"><span class="es" lang="es">Futuro</span><span class="en" lang="en">Future</span></span>
           <a class="demo-url" href="https://maria-dev.liberada.net" target="_blank" rel="noopener">maria-dev.liberada.net</a>
-          <p><span class="es" lang="es">Un perfil de desarrollo: bio extendida, juega y filtra — la actividad de tus otras apps en tu nuevo perfil.</span><span class="en" lang="en">A development profile: extended bio, play and filter — the activity of your other apps in your new profile.</span></p>
+          <p><span class="es" lang="es">Un perfil de desarrollo: bio extendida, juega y filtra la actividad de tus otras apps en tu nuevo perfil.</span><span class="en" lang="en">A development profile: extended bio, play and filter the activity of your other apps in your new profile.</span></p>
         </article>
       </div>
     </div>
@@ -1414,6 +1409,17 @@ body:has(#lang-en:checked) .es{display:none}
             <button type="button" class="rtab-btn" data-tab="futuro" aria-pressed="false">Flove v3</button>
           </nav>
           <div class="rtab-panel" id="pasado">
+            <div class="v1-top">
+              <div class="section-head">
+                <p class="eyebrow">Risa v1</p>
+                <h2>Descarga y monta la tuya</h2>
+                <p>Código abierto, sin servidor, sin coste. Clona el repo, lanza tu bot y empieza a publicar risas en una tarde.</p>
+              </div>
+              <a class="std-card" href="https://flove.org/development/standards/risaliberada/risaliberada.md" target="_blank" rel="noopener">
+                <h4>📘 Estándar RisaLiberada v1</h4>
+                <p>El circuito completo: bot, moderación, publicación, identidad y privacidad.</p>
+              </a>
+            </div>
             <details class="collapsed">
               <summary>Agentes — un prompt para montar el sistema <button class="chip copy-chip" id="copy-prompt" type="button" aria-label="Copiar el prompt al portapapeles">Copiar</button></summary>
               <div class="collapsed-body">
@@ -1654,21 +1660,12 @@ Restricciones: sin servidor ni base de datos propios; piezas gratuitas (R2, Page
             </ul>
           </div>
           <div class="rtab-panel" id="presente" hidden>
-            <div class="section-head">
-              <p class="eyebrow">Risa v1</p>
-              <h2>Descarga y monta la tuya</h2>
-              <p>Código abierto, sin servidor, sin coste. Clona el repo, lanza tu bot y empieza a publicar risas en una tarde.</p>
-            </div>
             <div class="linkrow">
               <a href="risa103.zip" download rel="noopener">⤓ Descargar Risa v1 · Nick as tag</a>
               <a href="https://github.com/floveorg/risa" target="_blank" rel="noopener">floveorg/risa ↗</a>
               <a href="https://flove.org/development/standards/risaliberada/risaliberada.md" target="_blank" rel="noopener">Estándar del circuito ↗</a>
             </div>
             <div class="standards-row">
-              <a class="std-card" href="https://flove.org/development/standards/risaliberada/risaliberada.md" target="_blank" rel="noopener">
-                <h4>📘 Estándar RisaLiberada v1</h4>
-                <p>El circuito completo: bot, moderación, publicación, identidad y privacidad.</p>
-              </a>
               <a class="std-card" href="https://flove.org/development/standards/risaliberada/plan-v2.md" target="_blank" rel="noopener">
                 <h4>🚀 Plan liberada v2</h4>
                 <p>La extensión lineal de liberada v1: perfiles, D1, cadenas y más.</p>
