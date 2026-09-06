@@ -645,6 +645,22 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
 @keyframes fade{from{opacity:0}}
 @keyframes pop-modal{from{opacity:0; transform:translateY(20px) scale(.94)}}
 
+/* ============ LIGHTBOX · foto ampliada a pantalla completa ============ */
+.lightbox{position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:20px;
+  background:rgba(20,10,6,.92); backdrop-filter:blur(4px); cursor:zoom-out; animation:fade .18s ease}
+.lightbox[hidden]{display:none}
+.lightbox figure{margin:0; max-width:100%; max-height:100%; display:flex; flex-direction:column;
+  align-items:center; gap:10px}
+.lightbox img{max-width:100%; max-height:calc(100vh - 110px); width:auto; height:auto; display:block;
+  object-fit:contain; border-radius:12px; background:var(--cream); box-shadow:0 24px 70px rgba(0,0,0,.55);
+  animation:pop-modal .22s cubic-bezier(.2,1.4,.4,1)}
+.lightbox figcaption{color:#f2c9ad; font-family:var(--mono); font-size:.8rem; text-align:center;
+  max-width:min(92vw,700px)}
+.lightbox .modal-x{border-color:#f2c9ad; color:#f2c9ad; position:fixed; top:14px; right:14px}
+.lightbox .modal-x:hover{color:var(--ink); border-color:var(--ink)}
+figure.slide img, .rtab-panel figure img, .lightbox img{cursor:zoom-in}
+.lightbox img, .lightbox figure{cursor:zoom-out}
+
 /* opciones de los modales Entrar / Mejorar */
 .entrar-opts{display:grid; gap:10px; margin:0 0 14px}
 .entrar-opts .btn{justify-content:center; width:100%; text-decoration:none; text-align:center}
@@ -841,31 +857,6 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
 .rtab-panel details.collapsed summary::before{content:"+"; color:var(--persimmon); font-weight:800; font-size:1.05rem}
 .rtab-panel details.collapsed[open] summary::before{content:"-"}
 .rtab-panel details.collapsed .collapsed-body{padding:0 16px 14px}
-/* RÉPLICA · Risa v1 (formulario de configuración del prompt) */
-.setup-row{margin:12px 0 2px}
-.setup-chip{font-size:.88rem}
-.setup-modal{max-width:480px; max-height:min(680px,92vh); overflow-y:auto; overscroll-behavior:contain}
-.copy-chip{margin-left:auto; padding:7px 14px; font-size:.82rem}
-.copy-chip[aria-pressed="true"]{background:var(--marigold)}
-.see-btn{border:none; background:var(--marigold); color:var(--ink); font:inherit; font-size:.78rem; font-weight:700;
-  border-radius:999px; padding:3px 12px; margin-left:8px; cursor:pointer; vertical-align:middle}
-.see-btn:hover{transform:translateY(-1px)}
-.see-box{font-size:.86rem; line-height:1.5; color:var(--ink-soft)}
-.see-box ul{margin:2px 0 0; padding-left:18px}
-.see-box b{color:var(--ink)}
-.setup-group input[type="radio"]{accent-color:var(--persimmon)}
-.setup-form{display:grid; gap:14px}
-.setup-group{display:grid; gap:5px; border:2px dashed rgba(42,24,16,.25); border-radius:14px; padding:12px; margin:0}
-.setup-group.setup-radio{border:none; padding:0; gap:6px}
-.setup-group legend{font-family:var(--disp); font-weight:700; font-size:.9rem; color:var(--ink); padding:0 6px}
-.setup-group label{font-size:.9rem; color:var(--ink-soft)}
-.setup-group input[type="text"]{
-  border:2.5px solid var(--ink); border-radius:12px; background:#fff; color:var(--ink);
-  padding:9px 12px; font:inherit; width:100%; box-sizing:border-box}
-.setup-group input:focus{outline:3px solid rgba(255,176,32,.4)}
-.setup-ck{display:flex; align-items:center; gap:8px; cursor:pointer}
-.setup-ck input{width:18px; height:18px; accent-color:var(--persimmon)}
-.setup-actions{display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap}
 .circuit-fig{max-width:720px; margin:24px auto 0}
 .circuit-fig svg{width:100%; height:auto; display:block}
 .rtab-more{color:var(--ink-soft); line-height:1.55; max-width:72ch; margin-top:26px; padding-top:16px; border-top:1px dashed rgba(42,24,16,.22)}
@@ -1333,8 +1324,8 @@ body:has(#lang-en:checked) .es{display:none}
           <h2>¿Te montas la risa con nosotros?</h2>
           <p>Esto es <b>código abierto</b> y se replica en una tarde: clona el repo, lee el estándar, lanza tu propio bot con tu bucket y tu canal. Y si lo tuyo es inventar —bot, web, IA, diseño—, hay sitio para ti: el repo y el grupo están abiertos, entra, prueba, propón.</p>
           <div class="linkrow">
-            <a href="https://github.com/floveorg/risa" target="_blank" rel="noopener">floveorg/risa ↗</a>
-            <a href="https://flove.org/development/standards/risaliberada/risaliberada.md" target="_blank" rel="noopener">Estándar del circuito ↗</a>
+            <a href="https://github.com/floveorg/risa" target="_blank" rel="noopener">Código del circuito ↗</a>
+            <a href="https://flove.org/development/" target="_blank" rel="noopener">Desarrollo informático ↗</a>
           </div>
         </div>
         <div class="slider" role="region" data-autoplay="5000" aria-roledescription="carrusel" aria-label="Fotos del equipo montando la réplica">
@@ -1527,76 +1518,6 @@ body:has(#lang-en:checked) .es{display:none}
   <button class="rx-dock-btn rx-dock-stop" type="button" id="rx-dock-stop" aria-label="Parar" data-aria-es="Parar" data-aria-en="Stop">⏹</button>
 </div>
 
-<!-- ============ MODAL · RISA V1 — CONFIGURAR EL PROMPT DEL AGENTE ============ -->
-<div class="modal-back" id="setup-modal" hidden>
-  <div class="modal setup-modal" role="dialog" aria-modal="true" aria-labelledby="sm-title">
-    <button class="modal-x" type="button" id="sm-close" aria-label="Cerrar" data-aria-es="Cerrar" data-aria-en="Close">×</button>
-    <h2 id="sm-title">📦 Risa v1</h2>
-    <p class="modal-sub"><span class="es" lang="es">Tus datos se insertan solos en el prompt de «Agentes», en la introducción. Cambia lo que quieras y pulsa «Generar prompt».</span><span class="en" lang="en">Your data is inserted into the “Agents” prompt automatically, in the intro. Change what you want and press “Generate prompt”.</span></p>
-    <form id="setup-form" class="setup-form">
-      <div class="setup-group">
-        <label for="sf-proj"><span class="es" lang="es">Nombre del proyecto</span><span class="en" lang="en">Project name</span></label>
-        <input id="sf-proj" type="text" autocomplete="off" placeholder="p. ej. Risas del Huerto — sustituye a «risa» en el prompt (feed risa.json → tu-proyecto.json…)" data-ph-es="p. ej. Risas del Huerto — sustituye a «risa» en el prompt (feed risa.json → tu-proyecto.json…)" data-ph-en="e.g. Huerto Laughs — replaces “risa” in the prompt (risa.json feed → your-project.json…)">
-      </div>
-      <div class="setup-group">
-        <label for="sf-bot"><span class="es" lang="es">Nombre del bot</span><span class="en" lang="en">Bot name</span></label>
-        <input id="sf-bot" type="text" autocomplete="off" placeholder="p. ej. @TuBot — cron de Actions cada 5–10 min" data-ph-es="p. ej. @TuBot — cron de Actions cada 5–10 min" data-ph-en="e.g. @YourBot — Actions cron every 5–10 min">
-      </div>
-      <div class="setup-group">
-        <label for="sf-group"><span class="es" lang="es">Grupo de moderadores</span><span class="en" lang="en">Moderators group</span></label>
-        <input id="sf-group" type="text" autocomplete="off">
-      </div>
-      <div class="setup-group">
-        <label for="sf-channel"><span class="es" lang="es">Canal público</span><span class="en" lang="en">Public channel</span></label>
-        <input id="sf-channel" type="text" autocomplete="off">
-      </div>
-      <div class="setup-group">
-        <label for="sf-web">Folder-Repo-Url</label>
-        <input id="sf-web" type="text" autocomplete="off" placeholder="miweb.com · github.com/usuario/repo · carpeta local" data-ph-es="miweb.com · github.com/usuario/repo · carpeta local" data-ph-en="myweb.com · github.com/user/repo · local folder">
-      </div>
-      <div class="setup-group">
-        <label for="sf-media"><span class="es" lang="es">URL de los medios</span><span class="en" lang="en">Media URL</span></label>
-        <input id="sf-media" type="text" autocomplete="off" placeholder="p. ej. r2.dev/… — bucket público (R2) · MP3 con ffmpeg" data-ph-es="p. ej. r2.dev/… — bucket público (R2) · MP3 con ffmpeg" data-ph-en="e.g. r2.dev/… — public bucket (R2) · MP3 with ffmpeg">
-      </div>
-      <fieldset class="setup-group">
-        <legend><span class="es" lang="es">Campos para describir una pieza</span><span class="en" lang="en">Fields to describe an item</span></legend>
-        <label class="setup-ck"><input type="checkbox" id="sf-hide-title"> <span class="es" lang="es">Ocultar <b>título</b></span><span class="en" lang="en">Hide <b>title</b></span></label>
-        <label class="setup-ck"><input type="checkbox" id="sf-hide-tags"> <span class="es" lang="es">Ocultar <b>etiquetas</b></span><span class="en" lang="en">Hide <b>tags</b></span></label>
-        <label class="setup-ck"><input type="checkbox" id="sf-hide-name"> <span class="es" lang="es">Ocultar <b>autor</b></span><span class="en" lang="en">Hide <b>author</b></span></label>
-      </fieldset>
-      <fieldset class="setup-group">
-        <legend><span class="es" lang="es">Tipos de contenido permitidos</span><span class="en" lang="en">Allowed content types</span></legend>
-        <label class="setup-ck"><input type="checkbox" id="sf-t-text"> <span class="es" lang="es">Texto</span><span class="en" lang="en">Text</span></label>
-        <label class="setup-ck"><input type="checkbox" id="sf-t-audio" checked> <span class="es" lang="es">Audio</span><span class="en" lang="en">Audio</span></label>
-        <label class="setup-ck"><input type="checkbox" id="sf-t-video" checked> <span class="es" lang="es">Vídeo</span><span class="en" lang="en">Video</span></label>
-      </fieldset>
-      <fieldset class="setup-group">
-        <legend><span class="es" lang="es">Otros requisitos</span><span class="en" lang="en">Other requirements</span> <button type="button" class="see-btn" id="sm-see" aria-expanded="false" aria-controls="sm-see-box"><span class="es" lang="es">Ver</span><span class="en" lang="en">See</span></button></legend>
-        <div class="see-box" id="sm-see-box" hidden>
-          <p><span class="es" lang="es">Detalles que diferencian una <b>release completa</b> de un circuito pelado (subir · moderar · publicar):</span><span class="en" lang="en">Details that set a <b>full release</b> apart from a bare circuit (upload · moderate · publish):</span></p>
-          <ul>
-            <li><span class="es" lang="es">Audios o vídeos de máx. <b>1 min</b> y <b>10 MB</b></span><span class="en" lang="en">Audio or video up to <b>1 min</b> and <b>10 MB</b></span></li>
-            <li><span class="es" lang="es">Máx. <b>5 en cola</b> y <b>5 al día</b> por remitente</span><span class="en" lang="en">Max <b>5 in queue</b> and <b>5 a day</b> per sender</span></li>
-            <li><span class="es" lang="es">Licencia <b>CC BY-SA 4.0</b> en cada pieza, con aviso «Enviar = consentir» y tag por defecto <b>«libre»</b></span><span class="en" lang="en"><b>CC BY-SA 4.0</b> license on each piece, with a “Send = consent” notice and the default <b>“libre”</b> tag</span></li>
-            <li><span class="es" lang="es"><b>Página de autor automática</b> por persona: <code>#/u/&lt;key&gt;</code> con su propio feed, y el bot regala el enlace en el aviso de publicación (funciona con solo nombre público)</span><span class="en" lang="en"><b>Automatic author page</b> per person: <code>#/u/&lt;key&gt;</code> with its own feed, and the bot gives the link in the publish notice (works with just a public name)</span></li>
-            <li><span class="es" lang="es"><b>Comandos de consulta</b> en el bot, todos de solo lectura y reproducción: <code>/me</code> · <code>/stats</code> · <code>/profile</code> · <code>/status</code> · <code>/queue</code> · <code>/latest</code> · <code>/now</code> · <code>/today</code> · <code>/since</code> · <code>/random</code> · <code>/trending</code> · <code>/play</code></span><span class="en" lang="en"><b>Query commands</b> on the bot, all read-only: <code>/me</code> · <code>/stats</code> · <code>/profile</code> · <code>/status</code> · <code>/queue</code> · <code>/latest</code> · <code>/now</code> · <code>/today</code> · <code>/since</code> · <code>/random</code> · <code>/trending</code> · <code>/play</code></span></li>
-            <li><span class="es" lang="es"><b>Etiquetas enriquecidas hasta la web</b>: chips filtrables, búsqueda y favoritos ❤️/⭐ como filtro local del mismo feed</span><span class="en" lang="en"><b>Rich tags all the way to the web</b>: filterable chips, search and ❤️/⭐ favourites as a local filter of the same feed</span></li>
-            <li><span class="es" lang="es"><b>Entrada por deep link y QR</b> desde la web</span><span class="en" lang="en"><b>Deep link and QR entry</b> from the web</span></li>
-            <li><span class="es" lang="es"><b>Repo dedicado</b> con su propio GitHub Pages, con feed <b>newest-first</b></span><span class="en" lang="en"><b>Dedicated repo</b> with its own GitHub Pages, with a <b>newest-first</b> feed</span></li>
-          </ul>
-        </div>
-      </fieldset>
-      <div class="setup-group setup-radio">
-        <label class="setup-ck"><input type="radio" name="sf-req" id="sf-req-here" value="here" checked> <span class="es" lang="es">Como aquí — usar los límites de risa liberada</span><span class="en" lang="en">Like here — use risa liberada's limits</span></label>
-        <label class="setup-ck"><input type="radio" name="sf-req" id="sf-req-ask" value="ask"> <span class="es" lang="es">Pregúntame — que el agente me pregunte antes de fijarlos</span><span class="en" lang="en">Ask me — have the agent ask me before setting them</span></label>
-      </div>
-      <div class="setup-actions">
-        <button type="button" class="btn btn-ghost" id="sm-reset"><span class="es" lang="es">Restaurar prompt original</span><span class="en" lang="en">Restore original prompt</span></button>
-        <button type="submit" class="btn btn-primary"><span class="es" lang="es">Generar prompt</span><span class="en" lang="en">Generate prompt</span></button>
-      </div>
-    </form>
-  </div>
-</div>
 
 <!-- ============ MODAL · ENTRAR (acceso al perfil) ============ -->
 <div class="modal-back" id="entrar-modal" hidden>
@@ -1663,6 +1584,15 @@ body:has(#lang-en:checked) .es{display:none}
     </div>
   </div>
 </footer>
+
+<!-- ============ LIGHTBOX · foto ampliada ============ -->
+<div class="lightbox" id="photo-lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" data-aria-es="Foto ampliada" data-aria-en="Enlarged photo" hidden>
+  <button class="modal-x" type="button" id="lightbox-close" aria-label="Cerrar" data-aria-es="Cerrar" data-aria-en="Close">×</button>
+  <figure>
+    <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+    <figcaption id="lightbox-cap"></figcaption>
+  </figure>
+</div>
 
 <script src="risa.js"></script>
 <script src="https://flove.org/central/shared/code/js/flove-feed.js"></script>
@@ -1876,7 +1806,13 @@ body:has(#lang-en:checked) .es{display:none}
     tabBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.tab === name)); });
     Array.prototype.slice.call(document.querySelectorAll('.tab-panel')).forEach(function (p) { p.hidden = p.id !== name; });
   }
-  tabBtns.forEach(function (b) { b.addEventListener('click', function () { showTab(b.dataset.tab); }); });
+function goTab(name) {
+    showTab(name);
+    var panel = document.getElementById(name);
+    if (panel && panel.scrollIntoView) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  tabBtns.forEach(function (b) { b.addEventListener('click', function () { goTab(b.dataset.tab); }); });
+  Array.prototype.slice.call(document.querySelectorAll('[data-tab-link]')).forEach(function (b) { b.addEventListener('click', function () { goTab(b.dataset.tabLink); }); });
   showTab('cultura');
 
   /* ── QUIERO (servicios): despliega el contacto debajo del botón ── */
@@ -1928,6 +1864,46 @@ body:has(#lang-en:checked) .es{display:none}
   if (openUpload) openUpload.addEventListener('click', function () { openModal(uploadModal); });
   if (umClose) umClose.addEventListener('click', function () { closeModal(uploadModal); });
   if (uploadModal) uploadModal.addEventListener('click', function (e) { if (e.target === uploadModal) closeModal(uploadModal); });
+
+  /* ── FOOTER · créditos y licencias desplegables ── */
+  var creditsToggle = document.querySelector('.credits-toggle'), creditsBody = document.getElementById('credits-body');
+  if (creditsToggle && creditsBody) {
+    creditsToggle.addEventListener('click', function () {
+      var open = creditsBody.hidden;
+      creditsBody.hidden = !open;
+      creditsToggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  /* ── LIGHTBOX · clic en una foto → vista ampliada ── */
+  var lightbox = document.getElementById('photo-lightbox'), lbImg = document.getElementById('lightbox-img'),
+      lbCap = document.getElementById('lightbox-cap'), lbClose = document.getElementById('lightbox-close');
+  function openLightbox(img) {
+    if (!lightbox || !img) return;
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt || '';
+    var fig = img.closest('figure');
+    var figcap = fig && fig.querySelector('figcaption');
+    lbCap.textContent = figcap ? figcap.textContent : '';
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    if (!lightbox || lightbox.hidden) return;
+    lightbox.hidden = true;
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+  Array.prototype.slice.call(document.querySelectorAll('figure img')).forEach(function (img) {
+    img.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openLightbox(img);
+    });
+  });
+  if (lbClose) lbClose.addEventListener('click', closeLightbox);
+  if (lightbox) lightbox.addEventListener('click', function (e) { if (e.target === lightbox || e.target === lightbox.querySelector('figure')) closeLightbox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
 
   /* ── SEARCH DROPDOWN ── */
   var searchToggle = document.getElementById('toggle-search');
