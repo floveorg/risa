@@ -794,6 +794,7 @@ figure.slide img, .rtab-panel figure img, .lightbox img{cursor:zoom-in}
 .btn-center{text-align:center}
 .ciencia-intro{color:var(--ink-soft); max-width:60ch}
 .slider-framed{max-width:560px; margin:26px auto 0}
+.cs-grid .slider-framed{max-width:none; margin:0}
 .pill-list{list-style:none; margin:0 0 16px; padding:0; display:flex; flex-wrap:wrap; gap:8px}
 .pill-list li{background:var(--cream); border:2px solid var(--ink); border-radius:999px; padding:6px 14px; font-weight:600; font-size:.9rem}
 
@@ -806,9 +807,7 @@ figure.slide img, .rtab-panel figure img, .lightbox img{cursor:zoom-in}
   padding:8px 16px; cursor:pointer; transition:background .12s, color .12s}
 .chan-link:hover{background:var(--marigold)}
 .chan-link.chan-big{font-size:1.05rem; padding:12px 22px}
-.chan-plus{font-size:1.15rem; line-height:1}
-.chan-propone-row{display:flex; align-items:center; gap:10px}
-.propone-note{font-family:var(--mono); font-size:.8rem; color:var(--ink); font-weight:700}
+.promo-block{margin-top:30px}
 .promo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:18px 0 4px}
 @media(max-width:820px){.promo-grid{grid-template-columns:1fr}}
 .promo-card{display:flex; flex-direction:column; align-items:center; gap:10px; text-decoration:none; color:var(--ink);
@@ -817,7 +816,8 @@ figure.slide img, .rtab-panel figure img, .lightbox img{cursor:zoom-in}
 
 /* ============ TECNOLOGÍAS · RÉPLICA DEL SISTEMA ============ */
 .tecnologias{margin-top:46px}
-.tech-grid{display:grid; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; gap:16px; margin:20px 0 8px}
+.tech-grid{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:1fr; gap:16px; margin:20px 0 8px}
+@media(max-width:980px){.tech-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.tech-grid{grid-template-columns:1fr}}
 .tech-card{background:var(--cream); border:2px solid var(--ink); border-radius:18px; padding:18px 20px}
 .tech-card h4{margin:0 0 8px; font-family:var(--disp); font-size:1.15rem; color:var(--ink)}
@@ -861,7 +861,6 @@ figure.slide img, .rtab-panel figure img, .lightbox img{cursor:zoom-in}
 .circuit-fig svg{width:100%; height:auto; display:block}
 .rtab-more{color:var(--ink-soft); line-height:1.55; max-width:72ch; margin-top:26px; padding-top:16px; border-top:1px dashed rgba(42,24,16,.22)}
 .plan-links{list-style:none; padding:0; display:grid; gap:8px}
-.montar-row{margin-top:24px}
 .promo-emojis{font-size:2.6rem; letter-spacing:.18em; line-height:1;
   text-shadow:1px 1px 0 rgba(42,24,16,.3), 2px 2px 0 rgba(42,24,16,.22), 3px 3px 0 rgba(42,24,16,.12)}
 .promo-name{font-family:var(--disp); font-weight:800; font-size:1.1rem}
@@ -954,7 +953,7 @@ body:has(#lang-en:checked) .es{display:none}
         <div class="dd-sep"></div>
         <button type="button" id="dd-mejorar" aria-expanded="false"><span class="es" lang="es">Mejorar ▾</span><span class="en" lang="en">Upgrade ▾</span></button>
         <div class="dd-sep"></div>
-        <button type="button" data-tab-link="tecnologia"><span class="es" lang="es">Tech</span><span class="en" lang="en">Tech</span></button>
+        <button type="button" data-tab-link="cultura"><span class="es" lang="es">Cultura</span><span class="en" lang="en">Culture</span></button>
         <button type="button" id="dd-sobre-liberada"><span class="es" lang="es">Sobre liberada</span><span class="en" lang="en">About liberada</span></button>
         <button type="button" id="dd-contactar"><span class="es" lang="es">Contact</span><span class="en" lang="en">Contact</span></button>
         <div class="dd-sep"></div>
@@ -1169,33 +1168,22 @@ body:has(#lang-en:checked) .es{display:none}
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
               <span class="es" lang="es">Publicar</span><span class="en" lang="en">Share</span>
             </a>
-            <a class="chan-link" href="https://github.com/floveorg/risa" target="_blank" rel="noopener">
+            <a class="chan-link" href="https://flove.org/development/#telegram2web" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a11 11 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.73.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1v3.12c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
               <span class="es" lang="es">Código</span><span class="en" lang="en">Code</span>
             </a>
-            <div class="chan-propone-row">
-              <button class="chan-link" id="chan-propone" type="button" aria-expanded="false">
-                <span class="chan-plus">➕</span>
-              </button>
-              <p class="propone-note" id="propone-note" hidden><span class="es" lang="es">El que la propone se la come... 😉</span><span class="en" lang="en">The one who proposes it gets to eat it... 😉</span></p>
-            </div>
           </div>
-        <div class="btn-center montar-row">
-          <button class="btn btn-ghost" id="montar-replica" type="button">🛠️ <span class="es" lang="es">Montar réplica</span><span class="en" lang="en">Build a replica</span></button>
-        </div>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- ============ BARRAS INFERIORES · ESPIRITUALIDAD · CULTURA · CIENCIA · COMUNIDAD ============ -->
-<nav class="tab-bar" aria-label="Secciones de espiritualidad, comunidad, cultura, ciencia y tecnología">
-  <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false"><span class="es" lang="es">Ohm</span><span class="en" lang="en">Ohm</span></button>
-  <button type="button" class="tab-btn" data-tab="comunidad" aria-pressed="false"><span class="es" lang="es">Común</span><span class="en" lang="en">Community</span></button>
+<!-- ============ BARRAS INFERIORES · INTERIOR · CULTURA · CIENCIA ============ -->
+<nav class="tab-bar" aria-label="Secciones de interior, cultura y ciencia">
+  <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false"><span class="es" lang="es">Interior</span><span class="en" lang="en">Interior</span></button>
   <button type="button" class="tab-btn" data-tab="cultura" aria-pressed="true"><span class="es" lang="es">Cultura</span><span class="en" lang="en">Culture</span></button>
   <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false"><span class="es" lang="es">Ciencia</span><span class="en" lang="en">Science</span></button>
-  <button type="button" class="tab-btn" data-tab="tecnologia" aria-pressed="false"><span class="es" lang="es">Tech</span><span class="en" lang="en">Tech</span></button>
 </nav>
 
 <section class="content-section tab-panel" id="cultura" aria-label="Risas del mundo">
@@ -1259,7 +1247,6 @@ body:has(#lang-en:checked) .es{display:none}
       </div>
       <div class="cs-grid">
         <div class="cs-text">
-          <p class="eyebrow">Cultura</p>
           <h2>Una historia de reírse a propósito</h2>
           <p>Reír en grupo es tan viejo como la humanidad, pero convertirlo en ejercicio es reciente: en 1995, el médico Madan Kataria fundó en un parque de Bombay el primer <b>club de la risa</b> con cinco personas. Hoy hay miles en más de cien países.</p>
           <p>Del bufón medieval al <i>clown</i> hospitalario, de las comedias del arte a los memes: cada cultura ha guardado un rincón sagrado para la carcajada compartida.</p>
@@ -1277,11 +1264,49 @@ body:has(#lang-en:checked) .es{display:none}
             </div>
           </div>
       </div>
+      <div class="promo-block">
+        <p class="eyebrow">Promotores</p>
+        <div class="promo-grid">
+          <a class="promo-card" href="rishaman.html">
+            <span class="promo-emojis">🤣😎</span>
+            <span class="promo-name">Rishaman</span>
+          </a>
+          <a class="promo-card" href="https://flove.org/users/marc" target="_blank" rel="noopener">
+            <span class="promo-emojis">😌🤓</span>
+            <span class="promo-name">Marcflove</span>
+          </a>
+          <a class="promo-card" href="https://t.me/RisaLiberadaBot" target="_blank" rel="noopener">
+            <span class="promo-emojis">😇😈</span>
+            <span class="promo-name">Anón</span>
+          </a>
+        </div>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-text">
+          <div class="videos">
+            <p class="vlabel">🎬 Vídeos de comunidad</p>
+            <div class="vgrid">
+              <a class="vcard" href="https://www.youtube.com/watch?v=yauhbW_Fybo" target="_blank" rel="noopener">
+                <span class="play">▶</span><span><b>Yogatón: clase en grupo online</b><small>YouTube · sesión colectiva</small></span></a>
+              <a class="vcard" href="https://www.youtube.com/watch?v=8LxLBc6FI64" target="_blank" rel="noopener">
+                <span class="play">▶</span><span><b>Yoga de la risa para niños</b><small>YouTube · 4 juegos</small></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="slider" role="region" data-autoplay="5000" aria-roledescription="carrusel" aria-label="Fotos de comunidad riendo">
+          <div class="slides">
+            <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/amigos.jpg" alt="Grupo de amigos riendo juntos" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Laughing_Friends.jpg?width=1100'"><figcaption>Amigos riendo · Commons · CC BY-SA 4.0</figcaption></figure>
+            <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/amigos2.jpg" alt="Amigos riendo al aire libre" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Friends_laughing_(49485806987).jpg?width=1100'"><figcaption>Risas entre amigos · Commons · Dominio público</figcaption></figure>
+            <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/familia.jpg" alt="Familia y amigos riendo juntos" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Family_and_friends_laughing_(49485807057).jpg?width=1100'"><figcaption>Familia y amigos · Commons · Dominio público</figcaption></figure>
+            <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/amigos3.jpg" alt="Dos amigos charlando y riendo" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Two_friends_sitting_together,_chatting_and_laughing.jpg?width=1100'"><figcaption>Charla y risas · Commons · CC BY-SA 4.0</figcaption></figure>
+            <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/cena-risas.jpg" alt="Personas riendo alrededor de una mesa" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/People_laughing_at_a_dinner_(4563388022).jpg?width=1100'"><figcaption>Risas en la mesa · Commons · Dominio público</figcaption></figure>
+          </div>
+        </div>
+      </div>
       <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Cultura">
-        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false">Ohm</button>
-        <button type="button" class="tab-btn" data-tab="comunidad" aria-pressed="false">Común</button>
+        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false">Interior</button>
         <button type="button" class="tab-btn" data-tab="cultura" aria-pressed="true">Cultura</button>
-        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false">Ciencia</button><button type="button" class="tab-btn" data-tab="tecnologia" aria-pressed="false">Tech</button>
+        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false">Ciencia</button>
       </nav>
     </div>
   </section>
@@ -1304,12 +1329,15 @@ body:has(#lang-en:checked) .es{display:none}
           <img class="btn-anim" src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/logos/07-descorche-anim-lanza.svg" alt="" aria-hidden="true" width="30" height="30">
         </button>
       </div>
-      <p class="ciencia-intro">Hay incluso estudios que distinguen <b>tipos de risa</b> —de cosquillas, de broma, de alegría— y ven que activan zonas distintas del cerebro. Puedes escuchar sus muestras reales en la playlist «Risas del mundo».</p>
-      <div class="linkrow">
-        <a href="https://commons.wikimedia.org/wiki/File:Different-Types-of-Laughter-Modulate-Connectivity-within-Distinct-Parts-of-the-Laughter-Perception-pone.0063441.s010.oga" target="_blank" rel="noopener">Estudio: tipos de risa (audio) ↗</a>
-        <a href="https://es.wikipedia.org/wiki/Gelotolog%C3%ADa" target="_blank" rel="noopener">Gelotología ↗</a>
-      </div>
-      <div class="slider-framed">
+      <div class="cs-grid">
+        <div class="cs-text">
+          <p class="ciencia-intro">Hay incluso estudios que distinguen <b>tipos de risa</b> —de cosquillas, de broma, de alegría— y ven que activan zonas distintas del cerebro. Puedes escuchar sus muestras reales en la playlist «Risas del mundo».</p>
+          <div class="linkrow">
+            <a href="https://commons.wikimedia.org/wiki/File:Different-Types-of-Laughter-Modulate-Connectivity-within-Distinct-Parts-of-the-Laughter-Perception-pone.0063441.s010.oga" target="_blank" rel="noopener">Estudio: tipos de risa (audio) ↗</a>
+            <a href="https://es.wikipedia.org/wiki/Gelotolog%C3%ADa" target="_blank" rel="noopener">Gelotología ↗</a>
+          </div>
+        </div>
+        <div class="slider-framed">
         <div class="slider" role="region" data-autoplay="4500" aria-roledescription="carrusel" aria-label="Rostros riendo de verdad">
           <div class="slides">
             <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/mujer-dientes.jpg" alt="Mujer riendo con la boca muy abierta" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Laughing_woman_with_teeth.jpg?width=1100'"><figcaption>Al reír de verdad se activan 15 músculos faciales · CC BY-SA 4.0</figcaption></figure>
@@ -1318,6 +1346,7 @@ body:has(#lang-en:checked) .es{display:none}
             </div>
           </div>
         </div>
+      </div>
       <div class="cs-grid hack-row">
         <div class="cs-text">
           <p class="eyebrow">Hackeando</p>
@@ -1336,16 +1365,6 @@ body:has(#lang-en:checked) .es{display:none}
           </div>
         </div>
       </div>
-      <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Ciencia">
-        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false">Ohm</button>
-        <button type="button" class="tab-btn" data-tab="comunidad" aria-pressed="false">Común</button>
-        <button type="button" class="tab-btn" data-tab="cultura" aria-pressed="false">Cultura</button>
-        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="true">Ciencia</button><button type="button" class="tab-btn" data-tab="tecnologia" aria-pressed="false">Tech</button>
-      </nav>
-    </div>
-  </section>
-  <section class="content-section tab-panel" id="tecnologia" aria-label="Tecnología" hidden>
-    <div class="wrap">
       <div class="tecnologias">
         <div class="section-head">
           <p class="eyebrow">Techs</p>
@@ -1370,42 +1389,18 @@ body:has(#lang-en:checked) .es{display:none}
             <p>El asistente de IA con el que se desarrolla: escribe, valida y despliega este mismo código desde la terminal.</p>
           </article>
         </div>
-  <section class="content-section" id="demo" aria-label="Demo del perfil liberada" data-aria-es="Demo del perfil liberada" data-aria-en="Liberada profile demo">
-    <div class="wrap">
-      <div class="section-head head-center">
-        <p class="eyebrow"><span class="es" lang="es">Tu perfil liberada</span><span class="en" lang="en">Your liberada profile</span></p>
       </div>
-      <div class="demo-grid">
-        <article class="demo-card demo-past">
-          <h3>risa.liberada.net/#/u/&lt;key&gt;</h3>
-          <p><span class="es" lang="es"><b>Nombre como Tag</b>: un enlace a tus risas publicadas. Todo en un solo fichero (<code>index.html</code> y <code>risa.json</code>).</span><span class="en" lang="en"><b>Name as Tag</b>: a link to your published laughs. Everything in one single file (<code>index.html</code> and <code>risa.json</code>).</span></p>
-          <a class="demo-download" href="MANUAL.md" target="_blank" rel="noopener"><span class="es" lang="es">📘 Manual de uso</span><span class="en" lang="en">📘 User manual</span></a>
-        </article>
-        <article class="demo-card demo-present">
-          <a class="demo-url" href="https://maria.liberada.net" target="_blank" rel="noopener">maria.liberada.net</a>
-          <p><span class="es" lang="es">El perfil de la demo, ya con su subdominio: redirige a su perfil agregador con risas, amores, alias y más.</span><span class="en" lang="en">The demo profile, already with its subdomain: it redirects to her aggregator profile with laughs, loves, aliases and more.</span></p>
-          <a class="demo-download" href="https://liberada.net/usa/" target="_blank" rel="noopener"><span class="es" lang="es">Ver más ↗</span><span class="en" lang="en">See more ↗</span></a>
-        </article>
-        <article class="demo-card demo-future">
-          <a class="demo-url" href="https://maria-dev.liberada.net" target="_blank" rel="noopener">maria-dev.liberada.net</a>
-          <p><span class="es" lang="es">Un perfil de desarrollo: bio extendida, juega y filtra la actividad de tus otras apps en tu nuevo perfil.</span><span class="en" lang="en">A development profile: extended bio, play and filter the activity of your other apps in your new profile.</span></p>
-        </article>
-      </div>
-    </div>
-  </section>
-      </div>
-      <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Tech">
-        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false">Ohm</button>
-        <button type="button" class="tab-btn" data-tab="comunidad" aria-pressed="false">Común</button>
+      <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Ciencia">
+        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false">Interior</button>
         <button type="button" class="tab-btn" data-tab="cultura" aria-pressed="false">Cultura</button>
-        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false">Ciencia</button><button type="button" class="tab-btn" data-tab="tecnologia" aria-pressed="false">Tech</button>
+        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="true">Ciencia</button>
       </nav>
     </div>
   </section>
-  <section class="content-section tab-panel" id="espiritualidad" aria-label="Espiritualidad" hidden>
+  <section class="content-section tab-panel" id="espiritualidad" aria-label="Interior" hidden>
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Ohm</p>
+        <p class="eyebrow">Interior</p>
         <h2>Una risa que conecta</h2>
         <p>La carcajada no pide traducción: se entiende antes que las palabras. Esta sección es una introducción a la risa como puente — una pausa compartida que nos acerca a quienes ríen con nosotros y a lo que nos hace humanos.</p>
       </div>
@@ -1424,71 +1419,14 @@ body:has(#lang-en:checked) .es{display:none}
             <span class="play">▶</span><span><b>Archivo de vídeos de risa</b><small>Wikimedia Commons · libre</small></span></a>
         </div>
       </div>
-      <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Ohm">
-        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="true">Ohm</button>
-        <button type="button" class="tab-btn" data-tab="comunidad" aria-pressed="false">Común</button>
+      <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Interior">
+        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="true">Interior</button>
         <button type="button" class="tab-btn" data-tab="cultura" aria-pressed="false">Cultura</button>
-        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false">Ciencia</button><button type="button" class="tab-btn" data-tab="tecnologia" aria-pressed="false">Tech</button>
+        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false">Ciencia</button>
       </nav>
     </div>
   </section>
-  <section class="content-section tab-panel" id="comunidad" aria-label="Comunidad" hidden>
-    <div class="wrap">
-      <p class="eyebrow">Promotores</p>
-      <div class="promo-grid">
-        <a class="promo-card" href="rishaman.html">
-          <span class="promo-emojis">🤣😎</span>
-          <span class="promo-name">Rishaman</span>
-        </a>
-        <a class="promo-card" href="https://flove.org/users/marc" target="_blank" rel="noopener">
-          <span class="promo-emojis">😌🤓</span>
-          <span class="promo-name">Marcflove</span>
-        </a>
-        <a class="promo-card" href="https://t.me/RisaLiberadaBot" target="_blank" rel="noopener">
-          <span class="promo-emojis">😇😈</span>
-          <span class="promo-name">Anón</span>
-        </a>
-      </div>
-    </div>
-    <div class="wrap cs-grid">
-      <div class="cs-text">
-        <p>Reír sola está bien; reír en grupo es otra cosa. Busca un club de la risa cerca, monta uno en tu portal con tres amigos, o simplemente pasa esta página a quien haga tiempo que no se ríe.</p>
-        <ul class="pill-list">
-          <li>👥 Clubes de la risa</li>
-          <li>🏥 Clown hospitalario</li>
-          <li>🌳 Risa al aire libre</li>
-          <li>💻 Sesiones online</li>
-        </ul>
-        <div class="videos">
-          <p class="vlabel">🎬 Vídeos de comunidad</p>
-          <div class="vgrid">
-            <a class="vcard" href="https://www.youtube.com/watch?v=yauhbW_Fybo" target="_blank" rel="noopener">
-              <span class="play">▶</span><span><b>Yogatón: clase en grupo online</b><small>YouTube · sesión colectiva</small></span></a>
-            <a class="vcard" href="https://www.youtube.com/watch?v=8LxLBc6FI64" target="_blank" rel="noopener">
-              <span class="play">▶</span><span><b>Yoga de la risa para niños</b><small>YouTube · 4 juegos</small></span></a>
-          </div>
-        </div>
-      </div>
-      <div class="slider" role="region" data-autoplay="5000" aria-roledescription="carrusel" aria-label="Fotos de comunidad riendo">
-        <div class="slides">
-          <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/amigos.jpg" alt="Grupo de amigos riendo juntos" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Laughing_Friends.jpg?width=1100'"><figcaption>Amigos riendo · Commons · CC BY-SA 4.0</figcaption></figure>
-          <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/amigos2.jpg" alt="Amigos riendo al aire libre" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Friends_laughing_(49485806987).jpg?width=1100'"><figcaption>Risas entre amigos · Commons · Dominio público</figcaption></figure>
-          <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/familia.jpg" alt="Familia y amigos riendo juntos" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Family_and_friends_laughing_(49485807057).jpg?width=1100'"><figcaption>Familia y amigos · Commons · Dominio público</figcaption></figure>
-          <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/amigos3.jpg" alt="Dos amigos charlando y riendo" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Two_friends_sitting_together,_chatting_and_laughing.jpg?width=1100'"><figcaption>Charla y risas · Commons · CC BY-SA 4.0</figcaption></figure>
-          <figure class="slide"><img src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/cena-risas.jpg" alt="Personas riendo alrededor de una mesa" loading="lazy" onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/People_laughing_at_a_dinner_(4563388022).jpg?width=1100'"><figcaption>Risas en la mesa · Commons · Dominio público</figcaption></figure>
-        </div>
-      </div>
-    </div>
-    <div class="wrap">
-      <nav class="tab-bar tab-bar-foot" aria-label="Ir a otra sección desde Común">
-        <button type="button" class="tab-btn" data-tab="espiritualidad" aria-pressed="false">Ohm</button>
-        <button type="button" class="tab-btn" data-tab="comunidad" aria-pressed="true">Común</button>
-        <button type="button" class="tab-btn" data-tab="cultura" aria-pressed="false">Cultura</button>
-        <button type="button" class="tab-btn" data-tab="ciencia" aria-pressed="false">Ciencia</button><button type="button" class="tab-btn" data-tab="tecnologia" aria-pressed="false">Tech</button>
-      </nav>
-    </div>
-  </section>
-<!-- ============ MODAL · COMPARTE TU RISA ============ -->
+  <!-- ============ MODAL · COMPARTE TU RISA ============ -->
 <div class="modal-back" id="upload-modal" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="um-title">
     <button class="modal-x" type="button" id="um-close" aria-label="Cerrar" data-aria-es="Cerrar" data-aria-en="Close">×</button>
@@ -1739,7 +1677,7 @@ body:has(#lang-en:checked) .es{display:none}
     clipsOf: window.Risa.clipsOf,
     favKey: 'risa-liberada-favs',
     botUrl: window.Risa.TELEGRAM_BOT,
-    reservedSections: ['espiritualidad', 'cultura', 'ciencia', 'comunidad', 'tecnologia']
+    reservedSections: ['espiritualidad', 'cultura', 'ciencia']
       .concat((function () { var h = (location.hash || '').slice(1); return h && h.charAt(0) === '/' ? [h] : []; })()),
     self: currentSelf(),
     onReply: function (t) { openReplyModal(t); },
@@ -1800,7 +1738,7 @@ body:has(#lang-en:checked) .es{display:none}
     }
   });
 
-  /* ── PESTAÑAS DEL MUNDO (espiritualidad · comunidad · cultura · ciencia · tech) ── */
+  /* ── PESTAÑAS DEL MUNDO (interior · cultura · ciencia) ── */
   var tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tab-bar .tab-btn'));
   function showTab(name) {
     tabBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.tab === name)); });
@@ -1850,7 +1788,7 @@ function goTab(name) {
     document.addEventListener('click', function (e) { if (!dd.contains(e.target) && !ddBtn.contains(e.target)) setDD(false); });
     function ddAct(id, fn) { var b = document.getElementById(id); if (b) b.addEventListener('click', function () { setDD(false); fn(); }); }
     ddAct('dd-entrar', function () { var p = document.getElementById('entrar-page'); if (p) p.hidden = !p.hidden; });
-    ddAct('dd-mejorar', function () { showTab('tecnologia'); document.getElementById('expande').scrollIntoView({ behavior: 'smooth' }); });
+    ddAct('dd-mejorar', function () { var t = document.getElementById('expande'); if (t) t.scrollIntoView({ behavior: 'smooth' }); });
     ddAct('dd-sobre-liberada', function () { window.open('https://liberada.net', '_blank', 'noopener'); });
     ddAct('dd-contactar', function () { window.open('https://t.me/RisaLiberadaBot', '_blank', 'noopener'); });
     ddAct('dd-sobre', function () { document.getElementById('top').scrollIntoView({ behavior: 'smooth' }); });
@@ -2124,13 +2062,6 @@ function goTab(name) {
   window.addEventListener('hashchange', renderAuthor);
   renderAuthor();
 
-  /* ── EXPANDE · montar réplica ── */
-  var montar = document.getElementById('montar-replica');
-  if (montar) montar.addEventListener('click', function () {
-    var target = document.getElementById('expande');
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-
   /* ── BENEFICIOS · «Porque»: burbujas de beneficios. El del menú las
      lanza hacia la derecha (data-bubbles=right); Ciencia hacia abajo. ── */
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2259,6 +2190,114 @@ function goTab(name) {
   }
   if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', function(){ initLang(); initTheme(); }); }
   else { initLang(); initTheme(); }
+})();
+</script>
+<script>
+/* ── SLIDERS · carruseles de fotos y vídeos. Genera puntos, flechas y
+   contador para cada .slider; autoplay solo si data-autoplay="n" > 0. ── */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sliders = [];
+
+  function build(sl) {
+    if (sl.classList.contains('fl-slider')) return;
+    var track = sl.querySelector('.slides');
+    if (!track) return;
+    var slides = [].slice.call(track.children);
+    if (slides.length < 2) return;
+
+    var auto = parseInt(sl.getAttribute('data-autoplay') || '0', 10) || 0;
+    if (reduce) auto = 0;
+    var i = 0, n = slides.length, dots = [];
+
+    function mkBtn(cls, txt, label) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 's-btn ' + cls;
+      b.textContent = txt;
+      b.setAttribute('aria-label', label);
+      b.addEventListener('click', function () { s.go(cls === 's-prev' ? -1 : 1); });
+      return b;
+    }
+    function mkDot(slide, k) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = slide.getAttribute('data-dot') || '';
+      b.setAttribute('aria-label', slide.getAttribute('data-dot-label') || ('Diapositiva ' + (k + 1)));
+      b.setAttribute('aria-current', k === 0 ? 'true' : 'false');
+      b.addEventListener('click', function () { s.jump(k); });
+      return b;
+    }
+    function setDot(k) {
+      dots.forEach(function (d, x) { d.setAttribute('aria-current', x === k ? 'true' : 'false'); });
+    }
+
+    var s = {
+      sl: sl,
+      auto: auto,
+      next: Date.now() + auto,
+      hover: false,
+      go: function (dir) {
+        i = (i + dir + n) % n;
+        track.style.transform = 'translateX(-' + (i * 100) + '%)';
+        setDot(i);
+        count.textContent = (i + 1) + ' / ' + n;
+        s.next = Date.now() + auto;
+      },
+      jump: function (k) {
+        i = k;
+        track.style.transform = 'translateX(-' + (i * 100) + '%)';
+        setDot(i);
+        count.textContent = (i + 1) + ' / ' + n;
+        s.next = Date.now() + auto;
+      }
+    };
+
+    var count = document.createElement('span');
+    count.className = 'slide-count';
+    count.textContent = '1 / ' + n;
+
+    var isV = sl.classList.contains('vslider');
+    if (isV) {
+      var box = document.createElement('div');
+      box.className = 's-dots';
+      box.appendChild(mkBtn('s-prev', '‹', 'Anterior'));
+      slides.forEach(function (s2, k) { var b = mkDot(s2, k); dots.push(b); box.appendChild(b); });
+      box.appendChild(mkBtn('s-next', '›', 'Siguiente'));
+      sl.appendChild(box);
+    } else {
+      sl.appendChild(mkBtn('s-prev', '‹', 'Anterior'));
+      var wrap = document.createElement('div');
+      wrap.className = 's-dots';
+      slides.forEach(function (s2, k) { var b = mkDot(s2, k); dots.push(b); wrap.appendChild(b); });
+      sl.appendChild(wrap);
+      sl.appendChild(mkBtn('s-next', '›', 'Siguiente'));
+    }
+    sl.appendChild(count);
+
+    sl.addEventListener('mouseenter', function () { s.hover = true; });
+    sl.addEventListener('mouseleave', function () { s.hover = false; });
+    sl.addEventListener('focusin', function () { s.hover = true; });
+    sl.addEventListener('focusout', function () { s.hover = false; });
+    sl.classList.add('fl-slider');
+    sliders.push(s);
+  }
+
+  var timer = window.setInterval(function () {
+    if (document.hidden) return;
+    var t = Date.now();
+    sliders.forEach(function (s) {
+      if (!s.auto || s.hover) return;
+      if (s.sl.closest('[hidden]')) return;
+      if (t >= s.next) s.go(1);
+    });
+  }, 400);
+
+  window.addEventListener('hashchange', function () {
+    [].slice.call(document.querySelectorAll('.slider')).forEach(build);
+  });
+  [].slice.call(document.querySelectorAll('.slider')).forEach(build);
 })();
 </script>
 <div id="bottom-nav"></div>
