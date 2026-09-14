@@ -62,7 +62,7 @@ cp worker/* "$STAGE/worker/" 2>/dev/null || true
 # ── Workflows ────────────────────────────────────────────────────────────
 cp .github/workflows/*.yml "$STAGE/.github/workflows/" 2>/dev/null || true
 # ── Docs ─────────────────────────────────────────────────────────────────
-cp README.md CHANGELOG.md VERSIONING.md MANUAL.md .htmlvalidate.json "$STAGE/" 2>/dev/null || true
+cp README.md .htmlvalidate.json "$STAGE/" 2>/dev/null || true
 echo "v${VERSION}" > "$STAGE/VERSION"
 
 # Feed placeholder for the download (the real feed has current content).
