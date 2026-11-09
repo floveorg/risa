@@ -27,7 +27,7 @@ export function Telegram(token) {
       call('sendMessage', { chat_id: chatId, text, reply_markup: replyMarkup }),
     editMessageText: (chatId, messageId, text, replyMarkup) =>
       call('editMessageText', { chat_id: chatId, message_id: messageId, text, reply_markup: replyMarkup }),
-    // Post an audio by remote URL — Telegram fetches it (used for the Cloudinary clip).
+    // Post an audio by remote URL — Telegram fetches it.
     sendAudioByUrl: (chatId, url, caption, opts = {}) =>
       call('sendAudio', { chat_id: chatId, audio: url, caption,
         ...(opts.title ? { title: opts.title } : {}),

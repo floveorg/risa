@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { risaEntry, prependClip } from '../logic.mjs';
 
-const SRC = 'https://res.cloudinary.com/risa/video/upload/v1/risa/q_10.mp3';
+const SRC = 'https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/q_10.mp3';
 
 test('risaEntry keeps name + given src (no by field)', () => {
   const e = risaEntry({ id: 'q_10', name: 'Marta', tags: 'de grupo', when: '2026-07-19', src: SRC });

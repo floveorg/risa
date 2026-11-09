@@ -287,7 +287,7 @@ export function parseUpdates(updates, ctx, currentOffset = 0) {
 }
 
 export function risaEntry({ id, name, tags, when, src, t, tg, key, video, parent, channelMsgId, remix }) {
-  // `src` is the absolute audio URL (Cloudinary secure_url). The website composes
+  // `src` is the absolute media URL (R2/public). The website composes
   // the license (`by`, `orig`) from `name`; the bot never writes those (see spec §4).
   const e = {
     id,
