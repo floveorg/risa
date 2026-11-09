@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../appy/flove.css">
+<link rel="stylesheet" href="https://flove.org/apps/appy/flove.css">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -60,37 +60,14 @@ img{max-width:100%; display:block}
   color:var(--ink); transition:color .12s}
 .back:hover{color:var(--persimmon)}
 .navlinks{display:flex; gap:8px; align-items:center; margin:0 auto}
-.navlinks a{text-decoration:none; font-weight:700; font-size:.92rem; color:var(--ink);
-  background:var(--cream); border:2px solid var(--ink); border-radius:999px; padding:8px 18px;
-  box-shadow:0 3px 0 rgba(42,24,16,.14); transition:transform .12s}
-.navlinks a:hover{transform:translateY(-1px); color:var(--persimmon)}
-.navlinks a.active{background:var(--persimmon); color:#fff}
 @media(max-width:720px){
   .topbar .wrap{gap:8px; height:60px}
   .navlinks{gap:5px}
-  .navlinks a{padding:7px 13px; font-size:.8rem}
-  .ndrop-btn{padding:7px 13px; font-size:.8rem}
 }
-.ndrop{position:relative}
-.ndrop-ctl{position:absolute; opacity:0; pointer-events:none; margin:0}
-.ndrop-btn{display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-weight:700; font-size:.92rem;
-  color:var(--ink); background:var(--cream); border:2px solid var(--ink); border-radius:999px; padding:8px 18px;
-  box-shadow:0 3px 0 rgba(42,24,16,.14); cursor:pointer; transition:transform .12s; user-select:none}
-.ndrop-btn:hover{transform:translateY(-1px); color:var(--persimmon)}
-.ndrop-arrow{display:inline-block; transition:transform .18s}
-.ndrop-ctl:checked ~ .ndrop-btn{background:var(--marigold)}
-.ndrop-ctl:checked ~ .ndrop-btn .ndrop-arrow{transform:rotate(180deg)}
-.ndrop-ctl:focus-visible ~ .ndrop-btn{outline:3px solid var(--grape); outline-offset:3px}
-.ndrop-menu{display:none; position:absolute; top:calc(100% + 10px); left:50%; transform:translateX(-50%);
-  z-index:50; margin:0; padding:10px; list-style:none; min-width:160px; text-align:center;
-  background:var(--cream); border:2.5px solid var(--ink); border-radius:16px;
-  box-shadow:0 6px 0 rgba(42,24,16,.18)}
-.ndrop-ctl:checked ~ .ndrop-menu{display:block}
-.ndrop-menu li{margin:0; padding:0}
-.ndrop-menu a{display:block; text-decoration:none; font-weight:700; font-size:.9rem; color:var(--persimmon);
-  background:transparent; border:none; border-radius:8px; padding:7px 14px;
-  transition:color .12s, background .12s}
-.ndrop-menu a:hover{color:var(--ink); background:rgba(255,86,48,.12)}
+@media(max-width:520px){
+  .topbar .wrap{gap:6px; padding:0 12px}
+  .navlinks{gap:4px}
+}
 
 /* ============ SECCIÓN ============ */
 .content-section{padding:52px 0; border-top:2px dashed rgba(42,24,16,.16)}
@@ -100,27 +77,26 @@ img{max-width:100%; display:block}
 
 /* ============ TABS (CSS-only) ============ */
 .tab-ctl{position:absolute; opacity:0; width:1px; height:1px; margin:0}
-.tab-bar{position:sticky; top:76px; z-index:30; display:flex; gap:6px; margin:0 auto 28px; width:max-content;
-  background:var(--cream); border:2.5px solid var(--ink); border-radius:999px; padding:6px;
-  box-shadow:0 5px 0 rgba(42,24,16,.16)}
-.tab-btn{display:block; font-family:var(--disp); font-weight:700; font-size:.92rem; cursor:pointer; user-select:none;
-  color:var(--ink); background:transparent; border:2px solid transparent; border-radius:999px; padding:9px 18px;
-  transition:transform .12s, background .15s}
-.tab-btn:hover{background:var(--base)}
-#tab-full:checked ~ .tab-bar label[for="tab-full"],
-#tab-cats:checked ~ .tab-bar label[for="tab-cats"],
-#tab-map:checked ~ .tab-bar label[for="tab-map"]{background:var(--persimmon); color:#fff; box-shadow:0 3px 0 rgba(42,24,16,.18)}
-#tab-full:focus-visible ~ .tab-bar label[for="tab-full"],
-#tab-cats:focus-visible ~ .tab-bar label[for="tab-cats"],
-#tab-map:focus-visible ~ .tab-bar label[for="tab-map"]{outline:3px solid var(--grape); outline-offset:3px}
+.tab-btn{display:inline-flex; align-items:center; font-family:var(--body); font-weight:700; font-size:.92rem; cursor:pointer; user-select:none;
+  color:var(--ink); background:var(--cream); border:2px solid var(--ink); border-radius:999px; padding:8px 18px;
+  box-shadow:0 3px 0 rgba(42,24,16,.14); transition:transform .12s, background .15s}
+.tab-btn:hover{transform:translateY(-1px); color:var(--persimmon)}
+body:has(#tab-full:checked) .navlinks .tab-btn[for="tab-full"],
+body:has(#tab-cats:checked) .navlinks .tab-btn[for="tab-cats"],
+body:has(#tab-map:checked) .navlinks .tab-btn[for="tab-map"]{background:var(--persimmon); color:#fff; box-shadow:0 3px 0 rgba(42,24,16,.18)}
+body:has(#tab-full:focus-visible) .navlinks .tab-btn[for="tab-full"],
+body:has(#tab-cats:focus-visible) .navlinks .tab-btn[for="tab-cats"],
+body:has(#tab-map:focus-visible) .navlinks .tab-btn[for="tab-map"]{outline:3px solid var(--grape); outline-offset:3px}
 .tab-panel{display:none}
 #tab-full:checked ~ #panel-full{display:block}
 #tab-cats:checked ~ #panel-cats{display:block}
 #tab-map:checked ~ #panel-map{display:block}
 .panel-note{font-size:.9rem; color:var(--ink-soft); margin:0 0 16px}
 @media(max-width:720px){
-  .tab-bar{top:70px; width:auto; flex-wrap:wrap; justify-content:center}
-  .tab-btn{padding:8px 13px; font-size:.82rem}
+  .tab-btn{padding:7px 13px; font-size:.8rem}
+}
+@media(max-width:520px){
+  .tab-btn{padding:6px 9px; font-size:.7rem}
 }
 
 /* ============ SLIDER GENERAL · Full slides ============ */
@@ -265,7 +241,7 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .tour-track,.msub-track{transition:none}
-  .t-btn,.chip,.btn,.credits-toggle,.ndrop-btn,.ndrop-arrow,.ndrop-menu a,.tab-btn,.msub-btn{transition:none}
+  .t-btn,.chip,.btn,.credits-toggle,.tab-btn,.msub-btn{transition:none}
   .px{transform:none !important}
 }
 </style>
@@ -275,17 +251,11 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
 <!-- ============ TOPBAR (igual que risa) ============ -->
 <header class="topbar">
   <div class="wrap">
-    <a class="back" href="index.html" aria-label="Volver a Risa liberada">← Risas</a>
-    <nav class="navlinks" aria-label="Secciones">
-      <div class="ndrop">
-        <input type="checkbox" id="nav-comunidad" class="ndrop-ctl" checked>
-        <label for="nav-comunidad" class="ndrop-btn">Comunidad <span class="ndrop-arrow" aria-hidden="true">▾</span></label>
-        <ul class="ndrop-menu">
-          <li><a href="rishaman.html">Rishaman</a></li>
-        </ul>
-      </div>
-      <a href="#cultura">Cultura</a>
-      <a href="#ciencia">Ciencia</a>
+    <a class="back" href="../index.html" aria-label="Volver a Risa liberada">← Risas</a>
+    <nav class="navlinks" aria-label="Vistas del tour">
+      <label for="tab-full" class="tab-btn">Diapositivas</label>
+      <label for="tab-cats" class="tab-btn">Categorias</label>
+      <label for="tab-map" class="tab-btn">Árbol</label>
     </nav>
     <button class="theme-toggle" type="button" aria-label="Toggle light/dark theme">◐</button>
   </div>
@@ -301,16 +271,9 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
         <input type="radio" name="view" id="tab-cats" class="tab-ctl">
         <input type="radio" name="view" id="tab-map" class="tab-ctl">
 
-        <div class="tab-bar" role="group" aria-label="Vistas del tour">
-          <label for="tab-full" class="tab-btn">Full slides</label>
-          <label for="tab-cats" class="tab-btn">Per categories</label>
-          <label for="tab-map" class="tab-btn">Whole map</label>
-        </div>
-
         <!-- ================= VISTA 1 · FULL SLIDES ================= -->
-        <section class="tab-panel" id="panel-full" role="tabpanel" aria-label="Full slides">
-          <p class="panel-note">Una diapositiva por cada carpeta de <code>categorias/</code>, en orden de árbol. Las subcarpetas saltan a su diapositiva: chips en las ramas grandes, mini-pasador ‹ › cuando hay una o dos.</p>
-          <div class="tour" role="region" aria-roledescription="carrusel" aria-label="Full slides: una diapositiva por carpeta">
+        <section class="tab-panel" id="panel-full" role="tabpanel" aria-label="Diapositivas">
+          <div class="tour" role="region" aria-roledescription="carrusel" aria-label="Diapositivas: una diapositiva por carpeta">
             <div class="tour-track" id="tour-track" tabindex="0">
 
               <!-- ===== AMOR ===== -->
@@ -905,7 +868,7 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
         </section>
 
         <!-- ================= VISTA 2 · PER CATEGORIES ================= -->
-        <section class="tab-panel" id="panel-cats" role="tabpanel" aria-label="Per categories">
+        <section class="tab-panel" id="panel-cats" role="tabpanel" aria-label="Categorias">
           <p class="panel-note">Desplázate hacia abajo: una categoría tras otra, fiel a la estructura de carpetas y subcarpetas — nivel anidado en las ramas pobladas, mini-pasador ‹ › en las de una o dos. «diapositiva N» = su lugar en el tour de 19 de <a href="rishaman.html">rishaman.html</a>.</p>
 
           <!-- Categoría 01 · Sobre mi -->
@@ -1335,7 +1298,7 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
         </section>
 
         <!-- ================= VISTA 3 · WHOLE MAP ================= -->
-        <section class="tab-panel" id="panel-map" role="tabpanel" aria-label="Whole map">
+        <section class="tab-panel" id="panel-map" role="tabpanel" aria-label="Árbol">
           <div class="section-head">
             <p class="eyebrow">Mapa</p>
             <h2>El mapa de Rishaman</h2>
@@ -1485,7 +1448,7 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
   </div>
 </footer>
 
-<script src="risa.js"></script>
+<script src="../risa.js"></script>
 <script>
 (function(){
   "use strict";
@@ -1599,6 +1562,6 @@ footer p, footer li{font-size:.84rem; line-height:1.7}
 
 })();
 </script>
-<script src="../appy/flove-theme.js"></script>
+<script src="https://flove.org/apps/appy/flove-theme.js"></script>
 </body>
 </html>
