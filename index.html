@@ -22,6 +22,10 @@
 <link rel="stylesheet" href="https://flove.org/central/shared/code/css/flove.css">
 <link rel="stylesheet" href="https://flove.org/central/shared/code/css/flove-tabs.css">
 <style>
+/* a11y — 40px hit targets on touch (§6), desktop untouched */
+@media (pointer: coarse){
+  .btn,.btn-primary,.btn-ghost,.btn-soft,.subitem,.tbtn,.cat,.chip,.pc-toggle,.menu-item,.app-menu-item,.topmenu__item{min-height:40px}
+}
 /* ============ TOKENS ============ */
 :root{
   --ink:#2a1810;
@@ -922,14 +926,68 @@ body:has(#lang-en:checked) .es{display:none}
 .lang input:checked + label{background:var(--ink); color:var(--base); font-weight:700}
 </style>
 <link rel="stylesheet" href="https://flove.org/central/shared/code/css/flove-bottom-nav.css">
+<script>
+/* flove-store/1 + flove-net fallback — the common local-storage/net layer.
+   Apps inline this same block so they stay self-contained; this file is the
+   canonical reference and is shipped in the offline package. */
+(function () {
+  if (!window.floveStore) {
+    var mem = new Map();
+    function rawGet(k) {
+      try { return localStorage.getItem(k); }
+      catch (_) { return mem.has(k) ? mem.get(k) : null; }
+    }
+    function rawSet(k, v) {
+      try { localStorage.setItem(k, v); return true; }
+      catch (e) {
+        mem.set(k, v);
+        try { window.dispatchEvent(new CustomEvent('flove:storage-error', { detail: { key: k, error: e } })); } catch (_) {}
+        return false;
+      }
+    }
+    window.floveStore = {
+      getRaw: function (k, fallback) { var v = rawGet(k); return v == null ? (fallback === undefined ? null : fallback) : v; },
+      getJSON: function (k, fallback) {
+        try { var v = rawGet(k); return v == null ? (fallback === undefined ? null : fallback) : JSON.parse(v); }
+        catch (_) { return fallback === undefined ? null : fallback; }
+      },
+      set: function (k, v) { return rawSet(k, typeof v === 'string' ? v : JSON.stringify(v)); },
+      setJSON: function (k, v) { return rawSet(k, JSON.stringify(v)); },
+      remove: function (k) { try { localStorage.removeItem(k); } catch (_) {} mem.delete(k); },
+      available: function () {
+        try { var k = '__flove_probe__'; localStorage.setItem(k, '1'); localStorage.removeItem(k); return true; }
+        catch (_) { return false; }
+      },
+      memoryOnly: function () { return !this.available(); }
+    };
+  }
+  if (!window.floveFields) window.floveFields = function () {
+    try { var el = document.getElementById('flove-fields'); return el ? (JSON.parse(el.textContent).fields || []) : []; }
+    catch (_) { return []; }
+  };
+  if (!window.flovePort) {
+    window.flovePort = {
+      schema: 'flove-port/1',
+      export: function () { return { schema: 'flove-portrait/1', app: null, version: 1, generatedAt: new Date().toISOString(), rows: [] }; },
+      consult: function () { return { schema: 'flove-consult/1', app: null, version: 1, generatedAt: new Date().toISOString(), rows: [] }; },
+      import: function () { return { ok: false, applied: 0, errors: ['no app adapter'] }; }
+    };
+  }
+  if (!window.floveNet) window.floveNet = window.flovePort; // deprecated alias
+  if (!window.flovePortrait) window.flovePortrait = window.flovePort;
+  if (!window.floveSummary) window.floveSummary = function () { return window.flovePort.export(); };
+})();
+
+</script>
 </head>
+
 <body class="has-bottom-nav">
 
 <!-- ============ TOPBAR ============ -->
 <header class="topbar">
   <div class="wrap">
     <div class="brand-wrap">
-      <a class="brand" id="brand-logo" href="#top" role="button" aria-expanded="false" aria-controls="brand-dd" aria-label="Menú" title="Abrir menú" data-aria-es="Abrir menú" data-aria-en="Open menu">
+      <a class="brand" id="brand-logo" href="#top" role="button" aria-expanded="false" aria-controls="brand-dd" aria-label="Menú" title="Abrir menú" data-aria-es="Abrir menú" data-aria-en="Open menu" tabindex="0">
         <img class="brand-logo" src="https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/logos/15-guino-anim-guina.svg" alt="" width="53" height="53" onerror="this.onerror=null;this.src='https://pub-e3cbc6c5f1c945358670af27745479f1.r2.dev/risa/media/logos/15-guino.svg'">
         <span class="brand-title">Risa liberada</span>
       </a>
@@ -985,7 +1043,7 @@ body:has(#lang-en:checked) .es{display:none}
           <h3 id="up-name"><span class="es" lang="es">Usuario</span><span class="en" lang="en">User</span></h3>
         </div>
         <div class="up-actions">
-          <a class="up-action-btn up-tg-btn" id="up-tg" href="#" target="_blank" rel="noopener" hidden><span class="es" lang="es">Telegram ↗</span><span class="en" lang="en">Telegram ↗</span></a>
+          <a tabindex="0" role="button" class="up-action-btn up-tg-btn" id="up-tg" hidden><span class="es" lang="es">Telegram ↗</span><span class="en" lang="en">Telegram ↗</span></a>
         </div>
       </header>
       <h4><span class="es" lang="es">Mis risas</span><span class="en" lang="en">My laughs</span></h4>
@@ -2287,5 +2345,30 @@ function goTab(name) {
 })();
 </script>
 <div id="bottom-nav"></div>
+<script>
+/* a11y — anchors used as buttons: Enter/Space activate them (no href jump) */
+document.addEventListener('keydown', function(e){
+  var t = e.target;
+  if (!t || !t.matches || !t.matches('a[role="button"][tabindex], a[role="menuitem"][tabindex]')) return;
+  if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t.click(); }
+});
+</script>
+<script>
+/* a11y — role=button/menuitem: Enter/Space activate them */
+document.addEventListener('keydown', function(e){
+  var t = e.target;
+  if (!t || !t.matches || !t.matches('[role="button"][tabindex], [role="menuitem"][tabindex], [role="tab"][tabindex]')) return;
+  if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t.click(); }
+});
+</script>
+<!-- flove fields manifest · read by tools/extract-fields.py -->
+<script type="application/json" id="flove-fields">
+{
+  "schema": "flove-fields/1",
+  "app": "loly",
+  "status": "complete",
+  "fields": []
+}
+</script>
 </body>
 </html>
