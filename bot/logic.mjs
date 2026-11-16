@@ -1,6 +1,6 @@
 // Pure logic: Telegram getUpdates -> ordered actions + new offset. No I/O.
 
-import { createHash } from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 
 const APPROVE_WORDS = new Set(['ok', 'si', 'sí', 'yes', 'publicar', 'publish', 'dale', 'adelante', 'aprobado', 'subir', 'listo']);
 const REJECT_WORDS = new Set(['no', 'borrar', 'delete', 'rechazar', 'quitar', 'fuera', 'cancelar', 'anular']);
@@ -15,6 +15,19 @@ export { MAX_FILE_BYTES, MAX_VIDEO_BYTES, MAX_DURATION_S };
 // travels in claro beyond DM autor / grupo privado / cabecera del bot.
 export function hashId(chatId, secret = '') {
   return createHash('sha256').update(String(secret) + ':' + String(chatId)).digest('hex');
+}
+
+
+// ---- Claim token (v1.1): the token stays with the author; the feed carries
+// only sha256(token). The bot can regenerate it from the author key + clip id,
+// so no codes file is published. ----
+export function claimTokenOf(key, clipId, secret = '') {
+  return createHmac('sha256', String(secret))
+    .update('claim:' + String(key) + ':' + String(clipId))
+    .digest('base64url');
+}
+export function claimHashOf(token) {
+  return createHash('sha256').update(String(token)).digest('hex');
 }
 
 // Which identity fields land in queue.json (committed to the public repo):
@@ -112,8 +125,8 @@ export function parseUpdates(updates, ctx, currentOffset = 0) {
           actions.push({ kind: se[1] ? 'subedit-cancel' : 'subedit', chatId, callbackId: cb.id });
           continue;
         }
-        // /entrar: opciones de acceso a la miniapp de perfil.
-        const en = /^entrar:(code|miniapp|email)$/.exec(cb.data || '');
+        // /entrar: enlace de reclamo o miniapp para pegar el token.
+        const en = /^entrar:(claim|miniapp)$/.exec(cb.data || '');
         if (en) {
           actions.push({ kind: 'entrar-' + en[1], chatId, callbackId: cb.id });
           continue;
@@ -286,7 +299,7 @@ export function parseUpdates(updates, ctx, currentOffset = 0) {
   return { actions, offset };
 }
 
-export function risaEntry({ id, name, tags, when, src, t, tg, key, video, parent, channelMsgId, remix }) {
+export function risaEntry({ id, name, tags, when, src, t, tg, key, video, parent, channelMsgId, remix, claim }) {
   // `src` is the absolute media URL (R2/public). The website composes
   // the license (`by`, `orig`) from `name`; the bot never writes those (see spec §4).
   const e = {
@@ -299,6 +312,7 @@ export function risaEntry({ id, name, tags, when, src, t, tg, key, video, parent
   if (tags) e.tags = tags;
   if (tg) e.tg = tg;    // enlace t.me solo si el autor hizo opt-in (C19), nunca automático
   if (key) e.key = key; // página de autor: hash salado del id (tag-url automática), estable e inédito en claro
+  if (claim) e.claim = claim; // sha256 del token de reclamo; el token en claro solo lo tiene el autor
   if (video) e.video = true; // marca de vídeo: la web lo filtra/reproduce como vídeo (mp4)
   if (parent) e.parent = parent; // hilo: id del clip al que responde (thread reply)
   if (remix) e.remix = true; // remix «Grabar encima»: la web lo resalta como tal

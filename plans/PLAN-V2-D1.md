@@ -89,7 +89,6 @@ CREATE VIRTUAL TABLE search_fts USING fts5(
 | Método y ruta | Qué hace | Quién |
 |---|---|---|
 | `GET  /api/users/<username>` | perfil agregado (identity + actividad + socials) | web / agregador |
-| `POST /api/claim` | claim de identidad (código del bot, 1 solo uso) | miniapp |
 | `POST /api/profile` | editar nombre, bio, socials (requiere claim válido) | miniapp / bot |
 | `POST /api/recover` | añadir email / vías de recuperación | miniapp |
 | `POST /api/fav` · `GET /api/favs/<key>` | favoritos en la nube (sincronizan las playlists) | web |
@@ -106,7 +105,7 @@ CREATE VIRTUAL TABLE search_fts USING fts5(
 - **Actividad cruzada** — «juega y filtra»: el perfil agrega risas + amas + lo
   que juegues en otras apps liberada (powered by `activity`).
 - **Perfiles editables** — nombre, bio extendida y redes desde la miniapp con
-  claim de identidad (código del bot / email), no solo con comandos.
+  token de reclamo (enlace privado del bot), no solo con comandos.
 - **Cadenas enriquecidas** — hilos con contexto en D1 (el `parent` de v1 queda
   intacto; D1 añade conteo y vista).
 - **Webhooks reales** — Workers con webhook de Telegram en vez de solo cron:
@@ -122,9 +121,8 @@ respetar eso, no romperlo:
    `flove.json`): si el Workers calla, la página queda idéntica.
 2. **`risa.json` = read-model garantizado.** El Workers regenera `risa.json`
    desde D1 tras cada escritura (o el cron lo hace); nunca al revés.
-3. **Claim sin tocar el bot.** El flujo de código que ya tiene el bot
-   (`codes.json` → key) se mantiene; Workers valida el código y emite un
-   token de corta vida para `/api/*`.
+3. **Claim token-in-item (local).** El bot emite un enlace privado; el feed
+   publica solo `sha256(token)` y la web lo verifica sin servidor.
 4. **Una tabla `activity` por app.** Cada app (risa, ama, lovy) replica su feed
    a D1 con `POST /api/ingest`; el perfil agregador las mezcla sin tocar sus
    HTML.
@@ -356,7 +354,7 @@ para risa y para maria, sin selectores de rescate.
 1. `worker/` + `wrangler.toml` con rutas `/api/*` y D1 binding (worker ya
    existe para subdominios; se extiende).
 2. Migración D1: crear tablas + seed (identities con marcflove y maria).
-3. `POST /api/claim` + token; conectar la miniapp `#/entrar`.
+3. Claim token-in-item + registro de subdominio (bot `/usuario` o endpoint).
 4. `POST /api/profile` → el editor del perfil pasa a escribir en D1 (nombre,
    bio, socials) en vez de solo generar comandos.
 5. f1SS: `search_fts` + `GET /api/search`; conectar el input de búsqueda.

@@ -114,22 +114,6 @@ export default {
         return json({ ok: true });
       }
 
-      // POST /api/claim — identidad: { username, code } → token (dev simplificado:
-      // valida el código contra una tabla `codes` o el secret si se comparte).
-      if (base === 'claim' && method === 'POST') {
-        const b = await request.json().catch(() => ({}));
-        const code = String(b.code || '');
-        if (!code || code.length !== 6) return err('código de 6 dígitos requerido');
-        const user = await db.prepare('SELECT * FROM identities WHERE username = ?')
-          .bind(b.username || '').first();
-        if (!user) return err('usuario no encontrado', 404);
-        // Dev: acepta el código si coincide con el CLAIM_SECRET (corto) o
-        // consulta la tabla `codes` cuando el bot la replique a D1.
-        const ok = code === String(env.CLAIM_SECRET || '').slice(0, 6);
-        if (!ok) return err('código inválido');
-        return json({ ok: true, token: 'dev-' + user.key, user: user.username, tier: user.tier });
-      }
-
       // POST /api/profile — editar { username, name?, bio?, socials?, email? }
       if (base === 'profile' && method === 'POST') {
         if (!authed(env, request)) return err('no autorizado', 401);

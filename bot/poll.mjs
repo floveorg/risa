@@ -4,7 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { parseUpdates, risaEntry, prependClip, identityOf, hashId, MAX_FILE_BYTES, clipsOf,
   latestClips, clipsOfAuthor, clipsToday, clipsSince, randomClip,
   tagTrend, authorStats, searchClips, inlineResult,
-  hasAncestor, clipByChannelMsg, encChatId, decChatId
+  hasAncestor, clipByChannelMsg, encChatId, decChatId, claimTokenOf, claimHashOf
 } from './logic.mjs';
 import { pageUrlOf } from './pages.mjs';
 import { Telegram } from './telegram.mjs';
@@ -26,6 +26,7 @@ import {
 
 // Salt for the obfuscated Telegram-id hash.
 const TG_ID_SECRET = process.env.TG_ID_SECRET || 'risa-dev-secret';
+const CLAIM_SECRET = process.env.CLAIM_SECRET || TG_ID_SECRET;
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const p = (rel) => ROOT + rel;
@@ -74,7 +75,7 @@ async function setupBotPresence(tg, cfg) {
 // ── Handle one action (the core switch) ──────────────────────────────────────
 export async function handleAction(a, tg, cfg, state) {
   const { queue, drafts, risas, uploaders, uploads, tgpub, names,
-          suboffer, codes, usernames, clipOwners, notifyprefs } = state;
+          suboffer, usernames, clipOwners, notifyprefs } = state;
   const limits = cfg.limits || {};
 
   // Parent intent (remix deep link / forward) → open draft or pending holder.
@@ -394,9 +395,10 @@ export async function handleAction(a, tg, cfg, state) {
     await bestEffort(tg.sendMessage(a.chatId,
       '🔀 Encima de «' + (clip.t || clip.name || 'esta risa') + '»\n\n' +
       (open
-        ? 'Tu borrador se publicará como remix de esa risa.'
+        ? 'Tu borrador se publicará como remix de esa risa. El original se mezclará de fondo al publicar.'
         : 'Envía tu grabación (el .webm que descargaste o una nota de voz) y la ' +
-          'publicaremos como remix de esa risa.') + ' 💛'));
+          'publicaremos como remix de esa risa. El original se mezclará de fondo al publicar; ' +
+          'para oírlo mientras grabas, usa auriculares.') + ' 💛'));
     return { dirty: true };
   }
   if (a.kind === 'rename') {
@@ -492,32 +494,33 @@ export async function handleAction(a, tg, cfg, state) {
     return {};
   }
   if (a.kind === 'entrar-miniapp') {
-    const who = hashId(a.chatId, TG_ID_SECRET);
-    const sub = subOf(usernames, who);
-    await bestEffort(tg.answerCallback(a.callbackId, 'Abriendo tu perfil…'));
-    const url = sub ? subdomainUrl(cfg, sub) : pageUrlOf(who, cfg.webUrl);
+    await bestEffort(tg.answerCallback(a.callbackId, 'Abriendo la miniapp…'));
+    const web = String(cfg.webUrl || 'https://risa.liberada.net').replace(/\/+$/, '');
     await bestEffort(tg.sendMessage(a.chatId,
-      'Tu perfil:\n\n' + url + '\n\n' + ENTRAR_TEXT, ENTRAR_KEYS(cfg)));
+      'Pega tu token de reclamo aquí:\n\n' + web + '/#/entrar\n\n' + ENTRAR_TEXT, ENTRAR_KEYS(cfg)));
     return {};
   }
-  if (a.kind === 'entrar-code') {
+  if (a.kind === 'entrar-claim') {
     const who = hashId(a.chatId, TG_ID_SECRET);
-    const today = new Date().toISOString().slice(0, 10);
-    Object.keys(codes).forEach((c) => { if (codes[c].at !== today) delete codes[c]; });
-    const code = String(Math.floor(100000 + Math.random() * 900000));
-    codes[code] = { key: who, at: today };
-    await bestEffort(tg.answerCallback(a.callbackId, 'Código generado'));
+    const mine = clipsOfAuthor(risas, who);
+    if (!mine.length) {
+      await bestEffort(tg.sendMessage(a.chatId,
+        'Aún no tienes risas publicadas. Publica una y te daré su enlace de reclamo.'));
+      return {};
+    }
+    const clip = mine[0];
+    let dirty = false;
+    if (!clip.claim) {
+      clip.claim = claimHashOf(claimTokenOf(who, clip.id, CLAIM_SECRET));
+      dirty = true;
+    }
+    const token = claimTokenOf(who, clip.id, CLAIM_SECRET);
+    const web = String(cfg.webUrl || 'https://risa.liberada.net').replace(/\/+$/, '');
+    await bestEffort(tg.answerCallback(a.callbackId, 'Enlace generado'));
     await bestEffort(tg.sendMessage(a.chatId,
-      '🔑 Tu código: <code>' + code + '</code>\n\n' +
-      'Abre la miniapp en ' + String(cfg.webUrl || 'https://risa.liberada.net').replace(/\/+$/, '') +
-      '/#/entrar e introdúcelo para entrar y editar tu perfil.\nCaduca al final del día.'));
-    return { dirty: true };
-  }
-  if (a.kind === 'entrar-email') {
-    await bestEffort(tg.answerCallback(a.callbackId, 'Próximamente'));
-    await bestEffort(tg.sendMessage(a.chatId,
-      '📧 El código por email llegará pronto. Mientras tanto usa «Código por el bot» o abre la miniapp.'));
-    return {};
+      '🔑 Tu enlace de reclamo:\n\n' + web + '/#/claim/' + encodeURIComponent(token) +
+      '\n\nÁbrelo una vez. La web comprueba el token contra tu risa publicada y te lleva a tu página de autor.'));
+    return { dirty };
   }
   if (a.kind === 'cmd-mejorar') {
     await bestEffort(tg.sendMessage(a.chatId, MEJORAR_TEXT));

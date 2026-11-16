@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { parseUpdates, decisionOf, hashId, identityOf, risaEntry, MAX_VIDEO_BYTES, clipsOf,
          encChatId, decChatId,
          latestClips, clipsOfAuthor, clipsToday, clipsSince,
-         randomClip, tagTrend, authorStats, searchClips, inlineResult } from '../logic.mjs';
+         randomClip, tagTrend, authorStats, searchClips, inlineResult,
+         claimTokenOf, claimHashOf } from '../logic.mjs';
 
 const CTX = { modGroupId: -1001234 };
 
@@ -537,9 +538,9 @@ test('a private text while awaiting a subdomain rename becomes subedit-text', ()
 test('entrar callbacks parse from a private chat', () => {
   const mk = (data, id) => ({ update_id: id, callback_query: { id: 'c' + id, data,
     message: { message_id: 40 + id, chat: { id: 777, type: 'private' } }, from: { id: 777 } } });
-  const { actions } = parseUpdates([mk('entrar:code', 1), mk('entrar:miniapp', 2), mk('entrar:email', 3)], CTX);
-  assert.deepEqual(actions.map((a) => a.kind), ['entrar-code', 'entrar-miniapp', 'entrar-email']);
-  assert.deepEqual(actions[0], { kind: 'entrar-code', chatId: 777, callbackId: 'c1' });
+  const { actions } = parseUpdates([mk('entrar:claim', 1), mk('entrar:miniapp', 2)], CTX);
+  assert.deepEqual(actions.map((a) => a.kind), ['entrar-claim', 'entrar-miniapp']);
+  assert.deepEqual(actions[0], { kind: 'entrar-claim', chatId: 777, callbackId: 'c1' });
 });
 
 test('moderator edit callbacks in the mod group are parsed', () => {
@@ -756,4 +757,20 @@ test('inlineResult formats a clip as InlineQueryResultAudio', () => {
   assert.equal(result.performer, 'Marta');
   assert.ok(result.caption.includes('loca'));
   assert.equal(result.description, 'loca, café');
+});
+
+
+test('claim token is stable per key+clip, salted, and hashes to the feed claim', () => {
+  const token = claimTokenOf('key-a', 'q_1', 'secret');
+  assert.equal(token, claimTokenOf('key-a', 'q_1', 'secret'));
+  assert.notEqual(token, claimTokenOf('key-b', 'q_1', 'secret'));
+  assert.notEqual(token, claimTokenOf('key-a', 'q_2', 'secret'));
+  assert.notEqual(token, claimTokenOf('key-a', 'q_1', 'other'));
+  const hash = claimHashOf(token);
+  assert.equal(hash.length, 64);
+  assert.equal(hash, claimHashOf(token));
+  const entry = risaEntry({ id: 'q_1', name: 'A', src: 'x', when: 'now', key: 'key-a', claim: hash });
+  assert.equal(entry.claim, hash);
+  assert.equal(entry.key, 'key-a');
+  assert.ok(!JSON.stringify(entry).includes(token));
 });

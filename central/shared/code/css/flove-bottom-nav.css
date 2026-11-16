@@ -1,0 +1,54 @@
+/* ============================================================
+   flove-bottom-nav.css · central bottom navigation menu,
+   two levels (Category → App). Uses --app-accent palette.
+   ============================================================ */
+.bottom-nav-wrap{
+  position:fixed; bottom:0; left:0; right:0; z-index:500;
+  height:calc(58px + env(safe-area-inset-bottom,0px)); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.bottom-nav{
+  height:100%; display:flex; align-items:center; justify-content:space-around;
+  background:rgba(255,255,255,.95); backdrop-filter:blur(20px) saturate(1.6);
+  -webkit-backdrop-filter:blur(20px) saturate(1.6);
+  border-top:1px solid rgba(141,137,255,.12); box-shadow:0 -2px 20px -6px rgba(0,0,0,.12);
+}
+[data-theme="dark"] .bottom-nav, body[data-theme="dark"] .bottom-nav{
+  background:rgba(17,19,26,.92); border-top-color:rgba(141,137,255,.18);
+}
+.nav-btn{
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  background:none; border:none; cursor:pointer; padding:6px 10px; min-width:56px;
+  color:var(--muted,#4a4e5a); text-decoration:none; font-family:var(--font-ui);
+  border-radius:12px; transition:color .18s, background .18s;
+}
+.nav-btn:hover{color:var(--app-accent-deep); background:var(--app-accent-soft)}
+.nav-btn.active, .nav-btn.on{color:var(--app-accent-deep)}
+.nav-btn .nav-icon{width:22px; height:22px; display:grid; place-items:center}
+.nav-btn .nav-icon svg{width:22px; height:22px; display:block}
+.nav-btn .nav-label{font-size:.62rem; font-weight:600; letter-spacing:.02em}
+
+/* two-level: app strip shown above the bar when a category opens */
+.bottom-nav-level2{
+  position:fixed; bottom:calc(58px + env(safe-area-inset-bottom,0px)); left:0; right:0; z-index:499;
+  background:rgba(255,255,255,.97); backdrop-filter:blur(18px);
+  border-top:1px solid rgba(141,137,255,.14); box-shadow:0 -6px 24px -8px rgba(0,0,0,.14);
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+  display:flex; align-items:center; gap:8px; overflow-x:auto;
+}
+[data-theme="dark"] .bottom-nav-level2{background:rgba(17,19,26,.97);}
+.bottom-nav-level2[hidden]{display:none}
+.bottom-nav-level2 .bn2-title{
+  flex-shrink:0; font-family:var(--font-display); font-weight:700; font-size:.7rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--muted,#4a4e5a); padding-right:6px;
+}
+.bottom-nav-level2 .bn2-app{
+  display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px;
+  background:var(--app-accent-soft); color:var(--app-accent-deep); font-size:.78rem;
+  font-weight:600; text-decoration:none; white-space:nowrap;
+}
+.bottom-nav-level2 .bn2-app:hover{background:var(--app-accent); color:#fff}
+.bottom-nav-level2 .bn2-mark{font-size:.95rem; display:grid; place-items:center}
+.bottom-nav-level2 .bn2-mark svg{width:18px; height:18px}
+
+/* body padding so content isn't hidden behind the bar */
+body.has-bottom-nav{padding-bottom:calc(58px + 16px + env(safe-area-inset-bottom,0px))}

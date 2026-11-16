@@ -44,7 +44,6 @@ export async function loadState() {
     tgpub: await readJSON('state/tgpub.json', {}),
     names: await readJSON('state/names.json', {}),
     suboffer: await readJSON('state/suboffer.json', {}),
-    codes: await readJSON('state/codes.json', {}),
     clipOwners,
     notifyprefs: await readJSON('state/notifyprefs.json', {}),
     usernames: await readJSON('usernames.json', {}),
@@ -54,7 +53,7 @@ export async function loadState() {
 
 // Persist all state files to disk, encoding obfuscated chat IDs.
 export async function saveState(state) {
-  const { queue, drafts, uploaders, uploads, tgpub, names, suboffer, codes,
+  const { queue, drafts, uploaders, uploads, tgpub, names, suboffer,
           clipOwners, notifyprefs, usernames, risas, offset } = state;
   await writeJSON('state/queue.json', queue);
   await writeJSON('state/drafts.json', encDrafts(drafts));
@@ -63,7 +62,6 @@ export async function saveState(state) {
   await writeJSON('state/tgpub.json', tgpub);
   await writeJSON('state/names.json', names);
   await writeJSON('state/suboffer.json', suboffer);
-  await writeJSON('state/codes.json', codes);
   await writeJSON('state/clipowners.json', encUploaders(clipOwners));
   await writeJSON('state/notifyprefs.json', notifyprefs);
   await writeJSON('usernames.json', usernames);

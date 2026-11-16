@@ -1,0 +1,14 @@
+/* ============================================================
+   flove-tabs.css · shared tab-bar navigation (risa/maria).
+   Horizontal bar above content, border-bottom, active = magenta.
+   ============================================================ */
+
+.tab-bar{display:flex; gap:0; margin:0 auto 16px; padding:0;
+  border-bottom:3px solid var(--ink)}
+.tab-bar .tab-btn{flex:1; font-family:var(--disp, system-ui); font-weight:700; font-size:1rem;
+  color:var(--ink); background:none; border:none; border-bottom:4px solid transparent;
+  padding:12px 8px; margin:0; cursor:pointer; transition:color .12s, border-color .12s}
+.tab-bar .tab-btn:hover{color:var(--persimmon, var(--magenta))}
+.tab-bar .tab-btn[aria-pressed="true"]{border-bottom-color:var(--magenta); font-weight:800}
+.tab-panel[hidden]{display:none}
+@media(max-width:560px){.tab-bar .tab-btn{font-size:.92rem; padding:10px 4px}}

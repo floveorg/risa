@@ -260,6 +260,10 @@ export function publishedConfirmation(q, cfg, usernames, suboffer) {
   } else if (showEdit) {
     lines.push('🌐 Tu subdominio <nombre>.liberada.net · Editar');
   }
+  if (q.claimToken) {
+    const web = String(cfg.webUrl || 'https://risa.liberada.net').replace(/\/+$/, '');
+    lines.push('🔑 Reclama tu perfil: ' + web + '/#/claim/' + encodeURIComponent(q.claimToken));
+  }
   lines.push('📣 Grupo Risa liberada: ' + cfg.groupUrl);
   lines.push('📌 Envía /perfil para ver más opciones');
   const keys = showEdit
@@ -275,16 +279,14 @@ export const SUBEDIT_KEYS = () => ({ inline_keyboard: [[
   { text: '✖️ Cancelar', callback_data: 'subedit:cancel' }
 ]] });
 
-export const ENTRAR_TEXT = '📱 Acceso a tu perfil\n\n' +
-  'Abre tu perfil liberada para ver tus risas juntas y editarlas:\n\n' +
-  '• <b>Miniapp</b> — abre directamente tu perfil y su editor.\n' +
-  '• <b>Código por el bot</b> — te doy un código para entrar desde la web.\n' +
-  '• <b>Código por email</b> — te lo enviamos a tu correo (próximamente).';
+export const ENTRAR_TEXT = '🔑 Reclama tu perfil\n\n' +
+  'El bot te da un enlace de reclamo personal. Ábrelo una vez: la web verifica ' +
+  'el token contra el clip publicado y te lleva a tu página de autor.\n\n' +
+  'También puedes pegar el token en la miniapp.';
 export const ENTRAR_KEYS = (cfg) => ({ inline_keyboard: [[
-  { text: '📱 Abrir miniapp', url: String(cfg.webUrl || 'https://risa.liberada.net').replace(/\/+$/, '') + '/#/entrar' },
-  { text: '🔑 Código por el bot', callback_data: 'entrar:code' }
+  { text: '📱 Abrir miniapp', url: String(cfg.webUrl || 'https://risa.liberada.net').replace(/\/+$/, '') + '/#/entrar' }
 ], [
-  { text: '📧 Código por email', callback_data: 'entrar:email' }
+  { text: '🔑 Mi enlace de reclamo', callback_data: 'entrar:claim' }
 ]] });
 
 export const MEJORAR_TEXT = '✨ Mejorar tu risa — novedades\n\n' +

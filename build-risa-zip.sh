@@ -32,7 +32,8 @@ STAGE="$TMP/$NAME"
 mkdir -p "$STAGE/bot" "$STAGE/worker" "$STAGE/.github/workflows"
 
 # ── Web ──────────────────────────────────────────────────────────────────
-cp index.html risa.js config.json risa.json usernames.json CNAME "$STAGE/" 2>/dev/null || true
+cp index.html risa.css risa.js risa-app.js config.json risa.json usernames.json CNAME "$STAGE/" 2>/dev/null || true
+cp -r central "$STAGE/" 2>/dev/null || true
 cp build-rss.mjs risa.xml atom.xml "$STAGE/" 2>/dev/null || true
 # Imágenes LOCALES que index.html referencia por ruta relativa (diagramas,
 # QR y fotos de réplica) — imprescindibles para ver la web offline.
@@ -48,9 +49,9 @@ if [ -d "$CENTRAL" ]; then
   cp "$CENTRAL"/css/flove.css "$CENTRAL"/css/flove-bottom-nav.css "$STAGE/central/shared/code/css/" 2>/dev/null || true
   cp "$CENTRAL"/js/flove-feed.js "$CENTRAL"/js/flove-tags.js "$CENTRAL"/js/flove-player.js \
      "$CENTRAL"/js/flove-bottom-nav.js "$CENTRAL"/js/flove-sound.js "$CENTRAL"/js/flove-app.js \
-     "$STAGE/central/shared/code/js/" 2>/dev/null || true
+     "$CENTRAL"/js/flove-i18n.js "$STAGE/central/shared/code/js/" 2>/dev/null || true
   # El index empaquetado referencia las libs en relativo dentro del zip.
-  sed -i 's#../../../central/shared/code#central/shared/code#g' "$STAGE/index.html"
+  sed -i -e 's#../../../central/shared/code#central/shared/code#g' -e 's#https://flove.org/central/shared/code#central/shared/code#g' "$STAGE/index.html"
   echo "central libs bundled (${VERSION})"
 fi
 
